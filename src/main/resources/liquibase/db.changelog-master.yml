@@ -1,0 +1,92 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1.db-init
+      author: admin
+      changes:
+        - createTable:
+            tableName: gis
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: x
+                  type: double
+              - column:
+                  name: y
+                  type: double
+              - column:
+                  name: absX
+                  type: double
+              - column:
+                  name: absY
+                  type: double
+              - column:
+                  name: radius
+                  type: int
+              - column:
+                  name: tag
+                  type: varchar(255)
+
+        - createTable:
+            tableName: city
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: x
+                  type: double
+              - column:
+                  name: y
+                  type: double
+              - column:
+                  name: absX
+                  type: double
+              - column:
+                  name: absY
+                  type: double
+              - column:
+                  name: radius
+                  type: int
+              - column:
+                  name: tag
+                  type: varchar(255)
+
+        - createTable:
+            tableName: influence
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: x
+                  type: double
+              - column:
+                  name: y
+                  type: double
+              - column:
+                  name: absX
+                  type: double
+              - column:
+                  name: absY
+                  type: double
+              - column:
+                  name: radius
+                  type: int
+              - column:
+                  name: tag
+                  type: varchar(255)
