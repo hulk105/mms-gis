@@ -10,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.nure.informationgismodels.dao.CityRepository;
-import ua.nure.informationgismodels.entity.City;
+import ua.nure.informationgismodels.entity.Group;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,16 +22,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CityController {
 
-    private final CityRepository cityRepository;
-
     @GetMapping("/all")
     @ApiOperation(value = "Find all")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found")
     })
-    public ResponseEntity<Collection<City>> findAll() {
-        List<City> all = cityRepository.findAll();
+    public ResponseEntity<Collection<Group>> findAll() {
+        List<Group> all = new ArrayList<>();
         return !all.isEmpty()
                 ? new ResponseEntity<>(all, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);

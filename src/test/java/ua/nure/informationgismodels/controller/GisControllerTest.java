@@ -9,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ua.nure.informationgismodels.dao.GisRepository;
+import ua.nure.informationgismodels.dao.GroupRepository;
 import ua.nure.informationgismodels.entity.Gis;
 import ua.nure.informationgismodels.entity.Point;
 
@@ -27,7 +26,7 @@ class GisControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private GisRepository gisRepository;
+    private GroupRepository groupRepository;
     private Gis testGis;
 
     @BeforeEach
@@ -37,13 +36,13 @@ class GisControllerTest {
 
     @AfterEach
     void tierDown() {
-        gisRepository.deleteAll();
+        groupRepository.deleteAll();
     }
 
     @Test
     void findAll_shouldReturnAllDbContent() throws Exception {
-        assertEquals(0, gisRepository.count());
-        Gis gisFromDB = gisRepository.save(testGis);
+        assertEquals(0, groupRepository.count());
+        Gis gisFromDB = groupRepository.save(testGis);
 
         MvcResult mvcResult = mockMvc.perform(get("/gis/all")
                 .accept(MediaType.APPLICATION_JSON))
@@ -57,14 +56,14 @@ class GisControllerTest {
 
     @Test
     void get_shouldFindById() throws Exception {
-        long id = gisRepository.save(testGis).getId();
-        assertEquals(1, gisRepository.count());
+        long id = groupRepository.save(testGis).getId();
+        assertEquals(1, groupRepository.count());
 
         mockMvc.perform(get("/gis/{id}", id)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.tag").value("Station"));
-        assertEquals(1, gisRepository.count());
+        assertEquals(1, groupRepository.count());
     }
 
     @Test
@@ -75,13 +74,13 @@ class GisControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1));
-        assertEquals(1, gisRepository.count());
+        assertEquals(1, groupRepository.count());
     }
 
     @Test
     void update_shouldUpdateExisted() throws Exception {
-        assertEquals(0, gisRepository.count());
-        Gis gisFromDB = gisRepository.save(testGis);
+        assertEquals(0, groupRepository.count());
+        Gis gisFromDB = groupRepository.save(testGis);
         gisFromDB.setTag("City");
 
         mockMvc.perform(put("/gis")
@@ -90,16 +89,16 @@ class GisControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.tag").value("City"));
-        assertEquals(1, gisRepository.count());
+        assertEquals(1, groupRepository.count());
     }
 
     @Test
     void delete_shouldDeleteExistEntity() throws Exception {
-        long id = gisRepository.save(testGis).getId();
-        assertEquals(1, gisRepository.count());
+        long id = groupRepository.save(testGis).getId();
+        assertEquals(1, groupRepository.count());
 
         mockMvc.perform(delete("/gis/{id}", id))
                 .andExpect(status().isNoContent());
-        assertEquals(0, gisRepository.count());
+        assertEquals(0, groupRepository.count());
     }
 }

@@ -1,37 +1,37 @@
 package ua.nure.informationgismodels.service;
 
-import ua.nure.informationgismodels.entity.Gis;
+import ua.nure.informationgismodels.entity.Group;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface GisService {
+public interface ResearchService {
     /**
-     * Find all GIS objects into DB
-     * @return all {@link Gis} objects
+     * Find all Group objects with section RESEARCH into DB
+     * @return all {@link Group} objects with section RESEARCH
      */
-    Collection<Gis> findAll();
+    Collection<Group> findAll();
     /**
      * Find Gis by its ID
      * @param id ID of requested object
      * @return {@link Optional} containing Gis object or empty if not found
      */
-    Optional<Gis> findById(long id);
+    Optional<Group> findById(long id);
     /**
      * Save new valid GIS object
      * @param gis new object to save
      * @return saved object with its ID
      */
-    Gis save(Gis gis);
+    Group save(Group gis);
     /**
      * Update existed GIS object
      * @param gis object to update
      * @return update object from DB
      */
-    Gis update(Gis gis);
+    Group update(Group gis);
     /**
      * Remove GIS by its ID
-     * @param gisId ID of object to remove
+     * @param id ID of object to remove
      */
-    void removeById(long gisId);
+    void deleteById(long id);
 }
