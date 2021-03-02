@@ -1,0 +1,45 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: db.2021-3-2-10-00.table-creation
+      author: admin
+      changes:
+        - createTable:
+            tableName: GROUPS
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: tag
+                  type: varchar(255)
+              - column:
+                  name: section
+                  type: varchar(64)
+        - createTable:
+            tableName: POINTS
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: x
+                  type: double
+              - column:
+                  name: y
+                  type: double
+              - column:
+                  name: group_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_points_groups
+                    references: groups(id)
