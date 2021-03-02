@@ -13,6 +13,7 @@ import javax.validation.constraints.PositiveOrZero;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Entity
 @Table(name = "POINTS")
 public class Point {
 
@@ -28,5 +29,5 @@ public class Point {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "role_id")
-    private Group role;
+    private Group group;
 }

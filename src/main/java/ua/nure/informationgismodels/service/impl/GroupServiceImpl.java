@@ -3,15 +3,17 @@ package ua.nure.informationgismodels.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ua.nure.informationgismodels.dao.GroupRepository;
+import ua.nure.informationgismodels.dto.UpdateGroupDto;
 import ua.nure.informationgismodels.entity.Group;
-import ua.nure.informationgismodels.service.ResearchService;
+import ua.nure.informationgismodels.exception.NotFoundException;
+import ua.nure.informationgismodels.service.GroupService;
 
 import java.util.Collection;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ResearchServiceImpl implements ResearchService {
+public class GroupServiceImpl implements GroupService {
 
     private final GroupRepository groupRepository;
 
@@ -26,13 +28,22 @@ public class ResearchServiceImpl implements ResearchService {
     }
 
     @Override
+    public Collection<Group> findBySection(Group.Section section) {
+        return groupRepository.findBySection(section);
+    }
+
+    @Override
     public Group save(Group gis) {
         return groupRepository.save(gis);
     }
 
     @Override
-    public Group update(Group gis) {
-        return groupRepository.save(gis);
+    public Group update(UpdateGroupDto dto) {
+        Group group = groupRepository.findById(dto.getId())
+                .orElseThrow(() -> new NotFoundException("Can't find group with such id"));
+        group.setTag(dto.getTag());
+        group.setSection(dto.getSection());
+        return groupRepository.save(group);
     }
 
     @Override

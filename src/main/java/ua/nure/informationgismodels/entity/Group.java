@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Entity
 @Table(name = "GROUPS")
 public class Group {
 
@@ -27,13 +28,13 @@ public class Group {
     private String tag;
 
     @Enumerated(EnumType.STRING)
-    private Sections section;
+    private Section section;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
-    private List<Point> members;
+    private List<Point> points;
 
-    public enum Sections {
+    public enum Section {
         RESEARCH, INFLUENCE, CITIES
     }
 }
