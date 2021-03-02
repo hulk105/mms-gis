@@ -39,7 +39,10 @@ databaseChangeLog:
               - column:
                   name: group_id
                   type: int
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_points_groups
-                    references: groups(id)
+        - addForeignKeyConstraint:
+            baseTableName: POINTS
+            baseColumnNames: group_id
+            constraintName: fk_points_groups
+            referencedTableName: GROUPS
+            referencedColumnNames: id
+            onDelete: CASCADE

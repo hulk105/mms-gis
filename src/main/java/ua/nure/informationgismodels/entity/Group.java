@@ -30,7 +30,6 @@ public class Group {
     @Enumerated(EnumType.STRING)
     private Section section;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private List<Point> points;
 

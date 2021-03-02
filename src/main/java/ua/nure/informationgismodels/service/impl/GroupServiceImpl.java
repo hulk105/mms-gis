@@ -2,7 +2,9 @@ package ua.nure.informationgismodels.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.nure.informationgismodels.dao.GroupRepository;
+import ua.nure.informationgismodels.dao.PointRepository;
 import ua.nure.informationgismodels.dto.UpdateGroupDto;
 import ua.nure.informationgismodels.entity.Group;
 import ua.nure.informationgismodels.exception.NotFoundException;
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class GroupServiceImpl implements GroupService {
 
     private final GroupRepository groupRepository;
+
+    private final PointRepository pointRepository;
 
     @Override
     public Collection<Group> findAll() {
@@ -47,7 +51,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void deleteById(long gisId) {
-        groupRepository.deleteById(gisId);
+    @Transactional
+    public void deleteById(long groupId) {
+        Group group = findById(groupId)
+                .orElseThrow(() -> new NotFoundException("Can't find group with such id"));
+        pointRepository.deleteInBatch(group.getPoints());
+        groupRepository.delete(group);
     }
 }

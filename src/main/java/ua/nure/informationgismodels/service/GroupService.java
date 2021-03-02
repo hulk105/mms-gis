@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface GroupService {
     /**
-     * Find all Group objects with section RESEARCH into DB
+     * Find all Group objects
      * @return all {@link Group} objects with section RESEARCH
      */
     Collection<Group> findAll();
@@ -32,8 +32,8 @@ public interface GroupService {
     Group save(Group group);
     /**
      * Update existed Group object
-     * @param group object to update
-     * @return update object from DB
+     * @param dto data for update
+     * @return updated object from DB
      */
     Group update(UpdateGroupDto dto);
     /**
