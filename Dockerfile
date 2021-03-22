@@ -7,3 +7,4 @@ FROM openjdk:11.0.10-jre-slim-buster
 COPY --from=builder /gis-monitoring-service/target/*.jar /gis-monitoring-service/app.jar
 WORKDIR /gis-monitoring-service/
 ENTRYPOINT ["java","-jar","app.jar"]
+EXPOSE 8080
