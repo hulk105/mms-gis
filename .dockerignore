@@ -1,2 +1,6 @@
-!src/
-!pom.xml
+.idea
+target
+.gitignore
+information-gis-models.iml
+mvnw
+mvnw.cmd
